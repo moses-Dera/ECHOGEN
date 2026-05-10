@@ -122,26 +122,29 @@ export function SourcesPanel({ sources, bundle }: Props) {
 
             {s.layer === "news" && bundle.news && (
               <div className="space-y-1.5">
-                {[...bundle.news.crypto_news, ...(bundle.news.macro_news ?? [])].slice(0, 3).map((n, i) => (
-                  <a
-                    key={i}
-                    href={n.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-start gap-2 group"
-                  >
-                    <span className={`mt-0.5 shrink-0 rounded px-1 py-0.5 text-[10px] font-mono ${
-                      n.sentiment === "positive" ? "bg-emerald-500/10 text-emerald-500"
-                      : n.sentiment === "negative" ? "bg-red-500/10 text-red-500"
-                      : "bg-border-low text-muted"
-                    }`}>
-                      {(n as Record<string, unknown>).category as string ?? n.sentiment}
-                    </span>
-                    <span className="text-xs text-muted group-hover:text-foreground transition line-clamp-2">
-                      {n.title}
-                    </span>
-                  </a>
-                ))}
+                {[...bundle.news.crypto_news, ...(bundle.news.macro_news ?? [])].slice(0, 3).map((n, i) => {
+                  const sentiment = (n as any).sentiment;
+                  return (
+                    <a
+                      key={i}
+                      href={n.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-start gap-2 group"
+                    >
+                      <span className={`mt-0.5 shrink-0 rounded px-1 py-0.5 text-[10px] font-mono ${
+                        sentiment === "positive" ? "bg-emerald-500/10 text-emerald-500"
+                        : sentiment === "negative" ? "bg-red-500/10 text-red-500"
+                        : "bg-border-low text-muted"
+                      }`}>
+                        {(n as any).category ?? (sentiment || "news")}
+                      </span>
+                      <span className="text-xs text-muted group-hover:text-foreground transition line-clamp-2">
+                        {n.title}
+                      </span>
+                    </a>
+                  );
+                })}
               </div>
             )}
 
