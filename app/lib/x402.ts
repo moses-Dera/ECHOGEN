@@ -2,8 +2,11 @@ export type { ProviderConfig, PreviewResponse, FullInsightResponse, SignalBundle
 
 const BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8000";
 
-export async function fetchPreview() {
-  const res = await fetch(`${BACKEND}/insight`);
+export async function fetchPreview(targetToken?: string) {
+  const url = new URL(`${BACKEND}/insight`);
+  if (targetToken) url.searchParams.set("target_token", targetToken);
+  
+  const res = await fetch(url.toString());
   if (!res.ok) throw new Error("Failed to fetch signal preview");
   return res.json();
 }
@@ -11,6 +14,7 @@ export async function fetchPreview() {
 export async function fetchFullInsight(
   paymentSignature: string,
   providerConfig: import("./types").ProviderConfig,
+  targetToken: string = "SOL",
 ): Promise<import("./types").FullInsightResponse> {
   const res = await fetch(`${BACKEND}/insight/full`, {
     method: "POST",
@@ -18,6 +22,7 @@ export async function fetchFullInsight(
     body: JSON.stringify({
       payment_signature: paymentSignature,
       provider_config: providerConfig,
+      target_token: targetToken,
     }),
   });
 

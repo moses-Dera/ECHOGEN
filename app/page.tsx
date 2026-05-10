@@ -165,7 +165,7 @@ export default function Home() {
 
       setPhase("loading-insight");
 
-      const full = await fetchFullInsight(sigStr, config);
+      const full = await fetchFullInsight(sigStr, config, targetToken);
       setInsight(full);
 
       // Publish insight to chain as memo (non-fatal)
