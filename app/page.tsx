@@ -249,15 +249,24 @@ export default function Home() {
           <div className="flex items-center gap-4">
             {status !== "connected" ? (
               <div className="flex gap-2">
-                {connectors.map((c) => (
-                  <button
-                    key={c.id}
-                    onClick={() => connect(c.id)}
-                    className="rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-6 py-2.5 text-sm font-medium hover:bg-white/10 hover:border-accent/50 transition-all cursor-pointer"
+                {connectors.length > 0 ? (
+                  connectors.map((c) => (
+                    <button
+                      key={c.id}
+                      onClick={() => connect(c.id)}
+                      className="rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-6 py-2.5 text-sm font-medium hover:bg-white/10 hover:border-accent/50 transition-all cursor-pointer"
+                    >
+                      Connect {c.name}
+                    </button>
+                  ))
+                ) : (
+                  <a
+                    href="https://phantom.app/ul/browse/https%3A%2F%2Fechogen-rosy.vercel.app%2F?ref=https%3A%2F%2Fechogen-rosy.vercel.app%2F"
+                    className="rounded-full border border-accent/30 bg-accent/10 backdrop-blur-md px-6 py-2.5 text-sm font-medium hover:bg-accent/20 hover:border-accent/50 transition-all cursor-pointer flex items-center gap-2 text-accent"
                   >
-                    Connect {c.name}
-                  </button>
-                ))}
+                    <Wallet size={16} /> Open in Phantom
+                  </a>
+                )}
               </div>
             ) : (
               <div className="flex items-center gap-3">
