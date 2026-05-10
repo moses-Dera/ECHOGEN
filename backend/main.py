@@ -22,12 +22,19 @@ import db
 
 app = FastAPI(title="EchoGen Oracle")
 
+# More robust CORS for Vercel + Mobile
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
+
+@app.get("/")
+def root():
+    return {"status": "EchoGen Backend Live", "docs": "/docs"}
 
 PAYMENT_AMOUNT_LAMPORTS = int(os.getenv("PAYMENT_AMOUNT_LAMPORTS", "1000000"))
 ORACLE_WALLET = os.getenv("ORACLE_WALLET", "")
