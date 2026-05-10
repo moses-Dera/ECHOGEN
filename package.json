@@ -21,9 +21,13 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@prisma/client": "^7.8.0",
     "@solana/client": "^1.2.0",
     "@solana/react-hooks": "^1.1.5",
+    "@solana/sysvars": "^6.9.0",
+    "lucide-react": "^1.14.0",
     "next": "16.1.7",
+    "prisma": "^7.8.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "ws": "^8.18.3"
@@ -33,6 +37,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
     "prettier": "^3.6.2",

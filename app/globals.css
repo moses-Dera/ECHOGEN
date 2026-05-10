@@ -17,14 +17,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: oklch(0.145 0 0);
+    --background: #05050f; /* Deep space dark */
     --foreground: oklch(0.985 0 0);
-    --border-strong: oklch(1 0 0 / 0.12);
-    --border-low: oklch(1 0 0 / 0.08);
-    --accent: oklch(0.922 0 0);
-    --muted: oklch(0.75 0.01 260); /* brighten muted text in dark mode */
-    --cream: oklch(0.22 0.009 70.82);
-    --card: oklch(0.205 0 0);
+    --border-strong: rgba(255, 255, 255, 0.12);
+    --border-low: rgba(255, 255, 255, 0.05);
+    --accent: #00f0ff; /* Neon cyan accent */
+    --muted: oklch(0.75 0.01 260);
+    --cream: rgba(255, 255, 255, 0.03);
+    --card: rgba(10, 10, 20, 0.4);
     --card-foreground: oklch(0.985 0 0);
   }
 }
@@ -54,8 +54,42 @@
   }
 
   body {
-    @apply bg-bg1 text-foreground antialiased;
+    @apply bg-background text-foreground antialiased relative min-h-screen overflow-x-hidden;
     font-family: var(--font-sans);
     color-scheme: light dark;
   }
+  
+  /* Deep Space Gradient Background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 15% 50%, rgba(50, 0, 150, 0.15), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(0, 200, 255, 0.08), transparent 50%);
+    z-index: -1;
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card backdrop-blur-xl border border-border-low shadow-2xl;
+  }
+  
+  .glass-button {
+    @apply relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(79,70,229,0.4)];
+  }
+
+  .bento-box {
+    @apply flex flex-col justify-between rounded-xl bg-white/5 p-4 border border-white/5;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter } from "next/font/google";
+import { Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./components/providers";
 
-const inter = Inter({
-  variable: "--font-inter",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-inter", // keep variable name same to avoid breaking tailwind config if mapped
   subsets: ["latin"],
   display: "swap",
 });
@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Solana dApp Starter",
-  description: "A minimal Next.js starter powered by @solana/react-hooks",
+  title: "EchoGen — Solana Intelligence Oracle",
+  description: "On-chain signal detection → AI causal reasoning → verifiable intelligence published to Solana via x402 pay-per-insight.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",
@@ -34,7 +34,7 @@ export default function RootLayout({
       <Providers>
         <body
           suppressHydrationWarning
-          className={`${inter.variable} ${geistMono.variable} antialiased`}
+          className={`${spaceGrotesk.variable} ${geistMono.variable} antialiased`}
         >
           {children}
         </body>
